@@ -70,6 +70,8 @@ module Xsv
         @state = name
         @current_row = @empty_row.dup
         @current_row_attrs.clear
+      when :t
+        @state = name
       else
         @state = nil
       end
@@ -77,6 +79,8 @@ module Xsv
 
     def text(value)
       if @state == :v
+        @current_value << value
+      elsif @state == :t
         @current_value << value
       end
     end
